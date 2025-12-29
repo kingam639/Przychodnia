@@ -39,10 +39,22 @@ def wypozycz_ksiazke(biblioteka, tytul=None):
         tytul = input("Podaj tytul ksiazki, ktora chcesz wypozyczyc")
     usun_ksiazke(biblioteka, tytul)
 
-def wypozycz_lub_usun(tytul, biblioteka, wypozyczam=False, usuwam=False):
-    if wypozyczam == True and czy_jest_ksiazka(biblioteka, tytul):
+# def wypozycz_lub_usun(tytul, biblioteka, wypozyczam=False, usuwam=False):
+#     if wypozyczam == True and czy_jest_ksiazka(biblioteka, tytul):
+#         print(f"Wypozyczyles ksiazke {tytul}.")
+#     elif usuwam == True and czy_jest_ksiazka(biblioteka, tytul):
+#         print(f"Usunieto ksiazke {tytul}.")
+#     else:
+#         print("Brak takiej ksiazki.")
+
+def wyswietl_wypozyczenie(biblioteka, tytul):
+    if czy_jest_ksiazka(biblioteka, tytul):
         print(f"Wypozyczyles ksiazke {tytul}.")
-    elif usuwam == True and czy_jest_ksiazka(biblioteka, tytul):
+    else:
+        print("Brak takiej ksiazki.")
+
+def wyswietl_usuniecie(biblioteka, tytul):
+    if czy_jest_ksiazka(biblioteka, tytul):
         print(f"Usunieto ksiazke {tytul}.")
     else:
         print("Brak takiej ksiazki.")
