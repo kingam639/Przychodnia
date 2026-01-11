@@ -126,10 +126,13 @@ def wyswietl_wizyty(wizyty):
 def odwolaj_wizyte(wizyty, lekarz_id, godzina):
     for wizyta in wizyty:
         if wizyta["godzina"] == godzina:
-            wizyty.remove(wizyta)
-            #
-            lekarze[lekarz_id-1]["dostepne_godziny"].append(godzina)
+            wizyty.remove(wizyta) # usuwa cala wizyte
+            pacjenci[wizyta["pacjent_id"]-1]["zajete_godziny"].remove(godzina) # usuwa godzine wizyty z listy
+            # zajete_godziny w slowniku pacjenta (z listy slownikow pacjenci)
+            lekarze[lekarz_id-1]["dostepne_godziny"].append(godzina) # lekarzowi zwalnia sie godzina wizyty
 
+# sprawdzanie, czy pacjent nie ma już wizyty o tej godzinie - baza pacjentow, dodatkowe spr,zeby pacjent nie mogl sie
+# umowic do 2 lekarzy na te sama godzine
 # wizyta = {'pacjent': 'Jan', 'lekarz_id': 1, 'godzina': 10}
 def czy_jest_wizyta(wizyty, pacjent_id, godzina):
     for wizyta in wizyty:
@@ -137,11 +140,31 @@ def czy_jest_wizyta(wizyty, pacjent_id, godzina):
             return True
     return False
 
-def znajdz_specjalizacje(lekarze, specjalizacja):
+def czy_godzina_wolna_pacjent(pacjenci, pacjent_id, godzina):
+    if godzina in pacjenci[pacjent_id-1]["zajete_godziny"]:
+        return False
+    return True
+
+def czy_jest_specjalizacja(lekarze, specjalizacja):
+    # TODO: cz ta funkcja jest potrzebna (zmienilam nazwe, to byla znajdz specjalizacje)# ?
     for lekarz in lekarze:
         if lekarz["specjalizacja"] == specjalizacja:
             return True
     return False
+
+def znajdz_specjalizacje(lekarze, lekarz_id):
+    # zwraca specjalizacje lekarza o danym id
+    specjalizacja = lekarze[lekarz_id-1]["specjalizacja"]
+    return specjalizacja
+
+# print(znajdz_specjalizacje(lekarze, 1))
+
+def wybierz_specjaliste(lekarze, lekarz_id):
+    # lekarz_id to bedzie ten ktorego nie chce juz brac pod uwage....
+    # przeszukuje reszte lekarzy i wtedy wybieram tego o tej specjalizacji, ktorej szukam i zwracam jego id
+    for lekarz in lekarze:
+        if lekarz["id"] != lekarz_id and znajdz_specjalizacje(lekarze, lekarz_id):
+            return lekarz["id"]
 
 # 5️⃣ umow_wizyte(lekarze, wizyty, pacjent, lekarz_id, godzina)
 # 🔥 FUNKCJA GŁÓWNA
@@ -158,12 +181,19 @@ def znajdz_specjalizacje(lekarze, specjalizacja):
 def umow_wizyte(lekarze, wizyty, pacjent_id, lekarz_id, godzina):
     lekarz = czy_lekarz_istnieje(lekarze, lekarz_id)
     godzina_wizyty = czy_godzina_dostepna(lekarze, lekarz_id, godzina)
+    brak_lekarza = True
     if lekarz and godzina_wizyty:
         zarezerwuj_godzine(lekarze, lekarz_id, godzina)
         dodaj_wizyte(wizyty, pacjent_id, lekarz_id, godzina)
         print("Wizyta umówiona")
+    # jesli nie ma takiego lekarza, mozna wtedy znalezc innego specjaliste
     else:
-        print("Nie można umówić wizyty")
+        id_innego_lekarza = None
+        while id_innego_lekarza != lekarz_id:
+            id_innego_lekarza = wybierz_specjaliste(lekarze, lekarz_id)
+            umow_wizyte(lekarze, wizyty, pacjent_id, id_innego_lekarza, godzina)
+        else:
+            print("Nie mozna umowic wizyty")
 
 # 🧠 Ograniczenia (ważne dydaktycznie)
 # ❌ brak input()
@@ -173,15 +203,17 @@ def umow_wizyte(lekarze, wizyty, pacjent_id, lekarz_id, godzina):
 # ✔️ listy i słowniki
 # ✔️ logika oparta o wartości zwracane z funkcji
 
-
-
 # ▶️ Przykładowe użycie (do testów)
 umow_wizyte(lekarze, wizyty, 1, 1, 10)
 print(wizyty)
-odwolaj_wizyte(wizyty,1, 10)
+print(pacjenci)
+# odwolaj_wizyte(wizyty,1, 10)
+print(pacjenci)
 umow_wizyte(lekarze, wizyty, 2, 1, 10)
 print(wizyty)
-umow_wizyte(lekarze, wizyty, 3, 2, 14)
+# umow_wizyte(lekarze, wizyty, 3, 2, 14)
+print(wizyty)
+# umow_wizyte(lekarze, wizyty, 3, 1, 10)
 print(wizyty)
 wyswietl_wizyty(wizyty)
 
