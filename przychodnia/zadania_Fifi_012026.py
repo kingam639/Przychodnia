@@ -288,22 +288,37 @@ tablica6 = [22, 24, 29, 18, 43]
 # print(tablica11)
 
 
+# tablica11 = [2, 5, 4, -3, 7, 1]
+# dl_tablicy = len(tablica11)
+# print(tablica11)
+# while dl_tablicy > 0:
+#     min = tablica11[0]
+#     for elem in range(1, dl_tablicy):
+#         # print(elem)
+#         if min > tablica11[elem]:
+#             min = tablica11[elem]
+#     tablica11.append(min)
+#     # print(tablica11)
+#     tablica11.remove(min)
+#     print(tablica11)
+#     dl_tablicy -= 1
+
 tablica11 = [2, 5, 4, -3, 7, 1]
 dl_tablicy = len(tablica11)
 print(tablica11)
-while dl_tablicy - 1 >= 0:
-    min = tablica11[0]
-    for elem in range(1, dl_tablicy):
-        # print(elem)
-        if min > tablica11[elem]:
-            min = tablica11[elem]
-    tablica11.append(min)
-    print(tablica11)
-    tablica11.remove(min)
-    # print(tablica11)
-    dl_tablicy -= 1
-
-
-print(tablica11)
-
-
+index = 0
+min = tablica11[index]
+while dl_tablicy > 0:
+    if index < dl_tablicy - 1 and min > tablica11[index+1]:
+        min = tablica11[index+1]
+        index += 1
+    else:
+        index += 1
+    if index >= dl_tablicy:
+        tablica11.append(min)
+        # print(tablica11)
+        tablica11.remove(min)
+        print(tablica11)
+        dl_tablicy -= 1
+        index = 0
+        min = tablica11[index]
