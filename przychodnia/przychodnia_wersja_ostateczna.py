@@ -53,6 +53,7 @@ wizyty = []
 # Zwraca True / False
 
 def czy_lekarz_istnieje(lekarze, lekarz_id):
+    """Sprawdza, czy lekarz o podanym id istnieje."""
     for lekarz in lekarze:
         if lekarz["id"] == lekarz_id:
             return True
@@ -66,6 +67,7 @@ def czy_lekarz_istnieje(lekarze, lekarz_id):
 # Zwraca True / False
 
 def czy_godzina_dostepna(lekarze, lekarz_id, godzina):
+    """Sprawdza, czy dana godzina jest dostępna u lekarza."""
     if czy_lekarz_istnieje(lekarze, lekarz_id):   # zwroci None, jesli czy_lekarz_istnieje jest False
         if godzina in lekarze[lekarz_id-1]["dostepne_godziny"]: # zakladamy, ze lekarze sa ulozenie w slowniku lekarze
             # w kolejnosci rosnacego id, a lekarze to lista slownikow, wiec ten o id=1 bedzie mial indeks listy=0
@@ -82,11 +84,11 @@ def czy_godzina_dostepna(lekarze, lekarz_id, godzina):
 # Zakładamy, że godzina jest poprawna
 # Nic nie zwraca
 def zarezerwuj_godzine(lekarze, lekarz_id, godzina):
+    """Usuwa godzinę z listy dostepne_godziny."""
     # jesli lekarz o danym id ma dostepna godzine, to wowczas mozna ja zarezerwowac, czyli usunac z listy
     # dostepnych godzin
     if czy_godzina_dostepna(lekarze, lekarz_id, godzina):
         lekarze[lekarz_id-1]["dostepne_godziny"].remove(godzina)
-
 
 # print(zarezerwuj_godzine(lekarze, 1, 9))
 
@@ -98,6 +100,7 @@ def zarezerwuj_godzine(lekarze, lekarz_id, godzina):
 #     "godzina": 10
 # }
 def dodaj_wizyte(wizyty, pacjent_id, lekarz_id, godzina):
+    """Dodaje słownik wizyty do listy wizyty."""
     wizyty.append({
      "pacjent_id": pacjent_id,
      "lekarz_id": lekarz_id,
@@ -105,6 +108,7 @@ def dodaj_wizyte(wizyty, pacjent_id, lekarz_id, godzina):
     })
     # tu chyba powinien tez dodac wizyte do zajete_godziny na liscie slownikow pacjenci
     pacjenci[pacjent_id-1]["zajete_godziny"].append(godzina)
+
 # dodaj_wizyte(wizyty, pacjent="Jan", lekarz_id=1, godzina=10)
 # print(wizyty)
 
