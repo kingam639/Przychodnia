@@ -130,9 +130,9 @@ def usun_zadanie(lista_zadan, nazwa_zadania):
         lista_zadan.remove(zadanie)
         print(f"Zadanie {zadanie['tytul']} zostalo usuniete.")
 
-def wybor_opcji():
-    wybor = input("Podaj nazwe zadania: ")
-    return wybor
+def wpisz_zadanie():
+    zadanie = input("Podaj nazwe zadania: ")
+    return zadanie
 #
 # def usun_zadanie(lista_zadan, nazwa_zadania):
 #     for zadanie in lista_zadan:
@@ -192,11 +192,21 @@ def menu():
 
 while True:
     menu()
-    wybor = wybor_opcji()
-    if wybor in opcje:
-
+    try:
+        wybor = int(input())
+    except ValueError:
+        print("To nie jest liczba, sprobuj ponownie.")
     else:
-        print("Podales bledny numer zadania")
+        if wybor in opcje:
+            if wybor <= 3:
+                nazwa_zadania = wpisz_zadanie()
+                opcje[wybor](lista_zadan, nazwa_zadania)
+            elif wybor == 4:
+                opcje[wybor](lista_zadan)
+            else:
+                break
+        else:
+            print("Podales bledny numer zadania")
 
 # 1️⃣ Dodawanie zadania które nie istnieje
 dodaj_zadanie(lista_zadan, "Kupić mleko")  # powinno dodać

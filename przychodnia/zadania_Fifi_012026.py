@@ -303,22 +303,34 @@ tablica6 = [22, 24, 29, 18, 43]
 #     print(tablica11)
 #     dl_tablicy -= 1
 
-tablica11 = [2, 5, 4, -3, 7, 1]
+tablica11 = [2, -5, 4, -5, 7, -11]
 dl_tablicy = len(tablica11)
 print(tablica11)
 index = 0
-min = tablica11[index]
-while dl_tablicy > 0:
+min = tablica11[index] # aktualny najmniejszy element w tablicy
+index1 = 0 # indeks pozycji, na ktora wstawiam kolejna najmniejszy element z tablicy
+index2 = 0 # indeks pozycji aktualnego najmniejszego elementu
+# petla wykonuje sie, dopoki tablica nie zostanie posortowana
+while index < dl_tablicy:
+   # warunek sprawdza, czy kolejny element jest mniejszy od aktualnie najmniejszego, jesli tak aktualizuje najmniejszy
     if index < dl_tablicy - 1 and min > tablica11[index+1]:
+        # min jest wieksza niz tablica11[index+1], dlatego teraz to tablica11[index+1] jest min
         min = tablica11[index+1]
-        index += 1
-    else:
-        index += 1
-    if index >= dl_tablicy:
-        tablica11.append(min)
-        # print(tablica11)
-        tablica11.remove(min)
+        # index2 przyjmuje pozycje najmniejszego elementu
+        index2 = index + 1
+    # inkrementujemy za kazdym razem wartosc indexu, czyli sprawdzamy kolejne elementy
+    index += 1
+    # gdy sprawdzimy wszystkie elementy na liscie zamieniamy element, ktory jest aktualnie minimalny
+   # z elementem o najmniejszym indeksie w czesci tablicy, ktora jest nieposortowana
+    if index == dl_tablicy:
+        # zamieniamy pozycjami element, ktory aktualnie jest minimalny z tym,
+        # ktory jest na pozycji, na ktora chcemy go umiescic
+        tablica11[index2], tablica11[index1] = tablica11[index1], tablica11[index2]
         print(tablica11)
-        dl_tablicy -= 1
-        index = 0
-        min = tablica11[index]
+        # przechodzimy do nastepnej pozycji na liscie
+        index1 += 1
+        index = index1
+        index2 = index1
+        # ustawiamy nowe poczatkowe minimum dla kolejnej iteracji
+        if index < dl_tablicy:
+            min = tablica11[index]
