@@ -4,23 +4,40 @@
 # Znajduje drugą największą liczbę w tablicy (nie największą, ale drugą!)
 # Znajduje drugą najmniejszą liczbę w tablicy
 # tablica = [5, 12, -3, 8, 12, 1, -7]
-tablica = [10, 10, 5, 3, 1]
+# tablica = [10, 10, 5, 3, 1]
+# tablica = [10, 10, 10, 10, 5]
+# tablica = [10, 0, 5, 10, -3]
+# tablica = [10, 10, 10, 10]
+# tablica = [5, 10, 8, 3]
+# tablica = [5, 3, 10, 8]
+tablica = [3, 5, 10, 8, 1]
 # Największa: 12
 # Druga największa: 8  (uwaga: nawet jeśli 12 pojawia się dwa razy!)
 # Najmniejsza: -7
 # Druga najmniejsza: -3
 najwieksza_1 = tablica[0]
-najwieksza_2 = tablica[1]
-# sprawdza, czy liczba przypisana jako pierwsza_najwieksza jest rzeczywiscie wieksza niz druga_najwieksza
-if najwieksza_1 < najwieksza_2:
-    najwieksza_1, najwieksza_2 = najwieksza_2, najwieksza_1
-if len(tablica) > 2:
-    for element in tablica[2:]:
-        # sprawdza, czy kolejny element jest najwiekszy
-        if element > najwieksza_1:
-            najwieksza_1, najwieksza_2 = element, najwieksza_1 # dotychczasowa najwieksza staje sie 2-ga najwieksza
-        # sprawdza czy kolejny element jest mniejszy niz najwiekszy, a wiekszy niz 2-ga najwieksza
-        elif element < najwieksza_1 and element > najwieksza_2:
-            najwieksza_2 = element # element staje sie dotychczasowa 2-ga najwieksza
-# printuje druga najwieksza
-print(najwieksza_2)
+najwieksza_2 = None
+# szuka liczby, ktora mozna przypisac do zmiennej najwieksza_2
+for element in tablica[1:]:
+    if element != najwieksza_1:
+        najwieksza_2 = element
+        print(f"1: {najwieksza_2}")
+        break
+# sprawdza, czy do najwieksza_2 przypisano wartosc liczbowa
+if najwieksza_2 is not None:
+    # sprawdza, czy liczba przypisana jako pierwsza_najwieksza jest rzeczywiscie wieksza niz druga_najwieksza
+    if najwieksza_1 < najwieksza_2:
+        najwieksza_1, najwieksza_2 = najwieksza_2, najwieksza_1
+
+    if len(tablica) > 2:
+        for element in tablica[2:]:
+            # sprawdza, czy kolejny element jest najwiekszy
+            if element > najwieksza_1:
+                najwieksza_1, najwieksza_2 = element, najwieksza_1 # dotychczasowa najwieksza staje sie 2-ga najwieksza
+            # sprawdza czy kolejny element jest mniejszy niz najwiekszy, a wiekszy niz 2-ga najwieksza
+            elif element < najwieksza_1 and element > najwieksza_2:
+                najwieksza_2 = element # element staje sie dotychczasowa 2-ga najwieksza
+    # printuje druga najwieksza
+    print(najwieksza_2)
+else:
+    print("Wszystkie wartosci na liscie sa takie same")

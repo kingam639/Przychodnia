@@ -314,17 +314,15 @@ index2 = 0 # indeks pozycji aktualnego najmniejszego elementu
 while index < dl_tablicy:
    # warunek sprawdza, czy kolejny element jest mniejszy od aktualnie najmniejszego, jesli tak aktualizuje najmniejszy
     if index < dl_tablicy - 1 and min > tablica11[index+1]:
-        # min jest wieksza niz tablica11[index+1], dlatego teraz to tablica11[index+1] jest min
         min = tablica11[index+1]
         # index2 przyjmuje pozycje najmniejszego elementu
         index2 = index + 1
-    # inkrementujemy za kazdym razem wartosc indexu, czyli sprawdzamy kolejne elementy
+    # inkrementujemy za kazdym razem wartosc indexu, czyli sprawdzamy kolejne elementy - niekonieczne
     index += 1
-    # gdy sprawdzimy wszystkie elementy na liscie zamieniamy element, ktory jest aktualnie minimalny
-   # z elementem o najmniejszym indeksie w czesci tablicy, ktora jest nieposortowana
+    # warunek sprawdza, czy przeszlismy przez wszystkie elementy tablicy
     if index == dl_tablicy:
         # zamieniamy pozycjami element, ktory aktualnie jest minimalny z tym,
-        # ktory jest na pozycji, na ktora chcemy go umiescic
+        # ktory jest na pozycji, na ktorej chcemy go umiescic
         tablica11[index2], tablica11[index1] = tablica11[index1], tablica11[index2]
         print(tablica11)
         # przechodzimy do nastepnej pozycji na liscie
