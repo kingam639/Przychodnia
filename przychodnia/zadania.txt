@@ -1,0 +1,3 @@
+Nauczyć się Pythona | do_zrobienia
+Napisać raport | zrobione
+Posprzątać pokój | do_zrobienia

@@ -1,7 +1,7 @@
-# tablica = [5, 2, 8, 1]
-# n = len(tablica)
+tablica = [5, 2, 8, 3]
+n = len(tablica)
 # print(tablica)
-# # 1. 1405-32
+# # # 1. 1405-32
 # for i in range(n):
 #     for j in range(n-1):
 #         # warunek sprawdza, czy kolejny element na liscie jest wiekszy od poprzedniego,
@@ -13,44 +13,62 @@
 #     n -= 1
 # print(tablica)
 
-tablica11 = [2, -5, 4, -5, 7, -11]
-dl_tablicy = len(tablica11)
-print(tablica11)
-index = 0
-min = tablica11[index]
-index1 = 0 # to jest indeks pozycji, na ktora wstawiam kolejna najmniejsza liczbe z tablicy
-index2 = 0 # to jest indeks pozycji, ktora ma najmniejsza liczba na tablicy
-# petla zatrzyma sie, gdy index bedzie rowny dlugosci tablicy
-while index < dl_tablicy:
-    # warunek sprawdza najpierw czy index jest mniejszy o 2 od dlugosci tablicy (bo jesli tablica ma dlugosc 6,
-    # to dlugosc tablicy -1 = 5, to warunek bedzie spelniony do wartosci indexu 4, nastepnie sprawdza czy
-    # wartosc min, ktora juz jest jest wieksza niz wartosc indexu zwiekszona o 1, bo min to cos co ma w tym momencie
-    # index 0, czyli sprawdzam dla kolejnej - index+1, wowczas wartosc minimalna, to wlasnie ta kolejna liczba na
-    # liscie. Poniewaz wartosc maxymalna wartosc indexu dla tablicy 6-elementowej, to 4, tablica porownuje do
-    # index+1, cyli do wartosci indexu 5
-    if index < dl_tablicy - 1 and min > tablica11[index+1]:
-        # min jest wieksza niz tablica11[index+1], dlatego teraz to tablica11[index+1] jest min
-        min = tablica11[index+1]
-        # wartosc index2 przyjmuje teraz wartosc z tablicy index+1
-        index2 = index + 1
-    # inkrementujemy za kazdym razem wartosc indexu
-    index += 1
-    # jesli wartosc indexu bedzie rowna dl. tablicy, co bedzie znaczylo,
-    # ze poprzedni warunek sprawdzil wszytskie elementy z listy
-    if index == dl_tablicy:
-        # zamieniamy pozycjami element, ktory aktualnie jest minimalny z tym,
-        # ktory jest na pozycji, na ktora chcemy go umiescic
-        tablica11[index2], tablica11[index1] = tablica11[index1], tablica11[index2]
-        print(tablica11)
-        # zwiekszamy wartosc index1, dlatego ze to kolejna pozycja,
-        # na ktora chcemy wstawic kolejna minimalna wartosc z tablicy
-        index1 += 1
-        # teraz zaczynamy sprawdzanie od nastepnego elementu, bo ten z pozycji index1 przed inkrementacja jest juz zajety
-        index = index1
-        # takze index2 ma miec wyzsza wartosc, bo juz poprzednia pozycja jest zajeta
-        index2 = index1
-        # w tym warunku sprawdzamy, czy nie ustawilismy kolejnosci dla wszytskich elementow tablicy, bo jesli
-        # index po inkrementacji dla listy szescioelementowej bedzie mial wartosc 6, wowczas warunek sie nie wykona,
-        # jesli jednak wartosc indexu bedzie mniejsza, wowczas jako wartosc min ustanawiamy nowy element z listy
-        if index < dl_tablicy:
-            min = tablica11[index]
+def indeks_wiekszej_wartosci(tablica, idx1, idx2):
+    """Funkcja porownuje sasiedne liczby, jesli liczba o nizszym indeksie ma wieksza wartosc, zamienia je miejscami.
+    Zwraca True, gdy nastapila zamiana."""
+    if tablica[idx1] > tablica[idx2]:
+        tablica[idx1], tablica[idx2] = tablica[idx2], tablica[idx1]
+        return True
+    return False
+
+def sortowanie_jednokrotne(lista, dlugosc_tablicy, numer_przejscia):
+    """Funkcja sortuje tablice za pomoca algorytmu sortowania babelkowego. Przechodzac przez tablice jednokrotnie
+    wypycha najwiekszy element na koniec tablicy.
+    Args:
+    lista: tablica do sortowania
+    dlugosc_tablicy: długość tablicy
+    numer_przejscia: ile razy już przeszliśmy przez tablicę
+    """
+    # zmienna czy_zmiana sledzi, czy jakies liczby byly zamienione
+    czy_zmiana = False
+    for j in range(dlugosc_tablicy - numer_przejscia - 1):
+        wynik = indeks_wiekszej_wartosci(lista, j, j + 1)
+        # jesli liczby zostaly zamienione zmienna wynik bedzie miec wartosc True,co zmieni wartosc zmiennej czy_zmiana
+        if wynik:
+            czy_zmiana = True
+        # czy_zmiana = czy_zmiana or wynik # alternatywna wersja sprawdza
+    return czy_zmiana
+
+def sortowanie_babelkowe(lista):
+    """Funkcja sortuje cala tablice za pomoca algorytmu sortowania babelkowego."""
+    n = len(lista)
+    for i in range(n):
+        # po każdym przejściu największy element "wypływa" na koniec,
+        # więc nie trzeba go już sprawdzać (stąd n - i - 1)
+        # zmienna czy_zmiana zwroci True, jesli podczas przejscia przez petle nastapila zamiana liczb
+        czy_zmiana = sortowanie_jednokrotne(lista, n, i)
+        print(czy_zmiana)
+        print("A")
+        print(lista)
+        if not czy_zmiana:
+            print(i)
+            break
+# wywolanie funkcji sortujacej
+sortowanie_babelkowe(tablica)
+print(tablica)
+# print(tablica[2], tablica[3])
+# indeks_wiekszej_wartosci(tablica, 2, 3)
+# def sortowanie_babelkowe(lista):
+#     n = len(lista)
+#     for i in range(n):
+#         # po kazdym przejsciu przez cala tablice zmniejsza sie jej rozmiar
+#         # o elementy juz posortowane, ktore trafily na koniec tablicy
+#         for j in range(n-i-1):
+#             indeks_wiekszej_wartosci(lista, j, j+1)
+#         print(lista)
+#         # zmniejszam rozmiar tablicy za kazdym razem, gdy najwiekszy element zostaje wstawiony na ostatnie wolne miejsce
+#         # n -= 1
+
+# sortowanie_babelkowe(tablica)
+# print(tablica)
+

@@ -1,0 +1,32 @@
+**Świetny pomysł! Oto lista rzeczy na które warto zwracać uwagę:** 📝
+
+---
+
+**1. EFEKTYWNOŚĆ:**
+- Czy robię niepotrzebne obliczenia w pętli? (np. `sorted(lista)` za każdym razem)
+- Czy mogę zakończyć wcześniej jeśli cel został osiągnięty? (np. tablica już posortowana)
+- Czy modyfikuję zmienne których nie muszę? (np. `n -= 1` gdy mogę użyć `n-i-1`)
+
+**2. PRZYPADKI BRZEGOWE:**
+- Co jeśli tablica jest pusta `[]`?
+- Co jeśli ma 1 element `[5]`?
+- Co jeśli wszystkie elementy są takie same `[3, 3, 3]`?
+- Co jeśli jest już posortowana?
+
+**3. LISTY I MODYFIKACJE:**
+- Czy funkcja modyfikuje oryginalną listę, czy tworzy nową?
+- Czy muszę coś zwracać, jeśli lista jest już zmodyfikowana?
+- Czy przypadkiem robię `nowa = stara` zamiast `nowa = stara.copy()`?
+
+**4. NAZWY I CZYTELNOŚĆ:**
+- Czy nazwy zmiennych są jasne? (`idx` vs `numer_przejscia`)
+- Czy komentarze wyjaśniają **dlaczego**, nie tylko **co**?
+- Czy ktoś inny zrozumie ten kod za miesiąc?
+
+**5. INDEKSY I ZAKRESY:**
+- Czy `range()` ma prawidłowy zakres? (off-by-one errors!)
+- Czy nie wychodzę poza tablicę? (np. `tablica[i+1]` gdy `i` jest ostatnim indeksem)
+
+**6. POWTARZANIE KODU:**
+- Czy robię to samo w kilku miejscach? (może funkcja?)
+- Czy mogę uprościć zagnieżdżone pętle?
