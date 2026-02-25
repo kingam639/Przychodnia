@@ -62,10 +62,10 @@ lista_zadan = []
 # zmienna opcje to slownik, ktory do kazdego klucza ma przypisana krotke z referencja do funkcji i wartoscia True, gdy
 # funkcja potrzebuje argumentu nazwa_zadania, lub False, gdy funckja tego argumentu nie potrzebuje
 opcje = {
-    1: (dodaj_zadanie, True),
-    2: (oznacz_zadanie_jako_zrobione, True),
-    3: (usun_zadanie, True),
-    4: (wyswietl_zadania, False)
+    1: dodaj_zadanie,
+    2: oznacz_zadanie_jako_zrobione,
+    3: usun_zadanie,
+    4: wyswietl_zadania,
 }
 
 def menu():
@@ -82,17 +82,20 @@ while True:
         wybor = int(input("Twoj wybor to: "))
     except ValueError:
         print("To nie jest liczba, sprobuj ponownie.")
-        # jesli uzytkownik wpisal cos innego niz liczba, continue spowoduje powrot petli while do poczatku
-    if wybor in opcje:
-        # przypisanie krotki do dwoch zmiennych
-        if funkcja, nazwa_zadania = opcje[wybor]:
+    else:
+        # wpisano liczbe z zakresu 1-4
+        if wybor in opcje:
+            # wpisano liczbe od 1-3, dlatego funkcja wymaga dodatkowego argumentu nazwa_zadania
+            if wybor < 4:
                 nazwa_zadania = wpisz_zadanie()
                 opcje[wybor](lista_zadan, nazwa_zadania)
             elif wybor == 4:
                 opcje[wybor](lista_zadan)
+        # wpisano liczbe 5, co oznacza wyjscie z petli
         elif wybor == 5:
             print("Wychodzisz z listy.")
             break
+        # wpisano numer zadania, ktorego nie ma na liscie
         else:
             print("Podales bledny numer zadania")
 
