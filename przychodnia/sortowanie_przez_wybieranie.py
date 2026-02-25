@@ -58,8 +58,8 @@
 # # print(tablica)
 
 
-# # TODO: Sortowanie przez wybieranie - rozwiazanie na podstawie rozw. algorytmu z internetu z dodaniem funkcji
-#  TODO: indeks_najmniejszej_wartosci(lista)
+# TODO: Sortowanie przez wybieranie - rozwiazanie na podstawie rozw. algorytmu z internetu z dodaniem funkcji
+# TODO: indeks_najmniejszej_wartosci(lista) i sortowanie_przez_wybieranie(lista)
 
 def indeks_najmniejszej_wartosci(lista):
     """Znajduje indeks liczby o najmniejszej wartosci."""
@@ -89,6 +89,7 @@ def sortowanie_przez_wybieranie(lista):
         # zamiana pierwszego wolnego indeksu z nieposortowanej czesci tablicy z najmniejsza wartoscia tej czesci tablicy
         lista[i], lista[min_idx] = lista[min_idx], lista[i]
     return lista # TODO: zostawic czy usunac?
+
 
 tablica = [1, 4, 0, 5, -3, 2]
 print(tablica)
